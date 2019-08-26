@@ -1,18 +1,20 @@
-#Transfer
-##Challenge
+# Transfer
+
+## Challenge
+
 Design and implement a RESTful API for money transfers between accounts.
-##Requirements
+## Requirements
 ```
 java: 12
 gradle: 5.6
 ```
-##Run
+## Run
 ```
 > gradle run
 ```
-* Add client
+### Add client
 
-Request:
+* Request:
 
 ```
 curl --request POST \
@@ -23,7 +25,7 @@ curl --request POST \
 	"balance": 10
     }'
 ```
-Response:
+* Response:
 
 ```
 {
@@ -33,7 +35,7 @@ Response:
 }
 ```
 
-* Get Client
+### Get Client
 
 Request:
 
@@ -53,9 +55,9 @@ Response:
 ```
 
 
-* Add Transfer
+### Add Transfer
 
-Request:
+* Request:
 
 ```
 curl --request POST \
@@ -68,7 +70,7 @@ curl --request POST \
 }'
 ```
 
-Response:
+* Response:
 
 ```
 {
