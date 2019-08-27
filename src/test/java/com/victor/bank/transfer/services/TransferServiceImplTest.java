@@ -1,27 +1,21 @@
 package com.victor.bank.transfer.services;
 
-import com.victor.bank.transfer.configs.H2InMemoryConfig;
-import com.victor.bank.transfer.datastores.H2InMemoryDataStore;
+import com.victor.bank.transfer.mock.ClientRepositoryMock;
+import com.victor.bank.transfer.mock.TransactionRepositoryMock;
 import com.victor.bank.transfer.models.requests.TransferReq;
 import com.victor.bank.transfer.models.response.TransferResp;
 import com.victor.bank.transfer.repositories.ClientRepository;
-import com.victor.bank.transfer.repositories.ClientRepositoryImpl;
 import com.victor.bank.transfer.repositories.TransactionRepository;
-import com.victor.bank.transfer.repositories.TransactionRepositoryImpl;
 import com.victor.bank.transfer.repositories.models.Client;
 import com.victor.bank.transfer.repositories.models.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAndIs;
-import static com.victor.bank.transfer.repositories.Constants.CREATE_CLIENT_TABLE_SQL;
-import static com.victor.bank.transfer.repositories.Constants.CREATE_TRANSACTIONS_TABLE_SQL;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-class TransferReqServiceImplTest {
+class TransferServiceImplTest {
 
     private TransferService transferService;
     private TransactionRepository transactionRepository;
@@ -29,10 +23,8 @@ class TransferReqServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        var datastore = new H2InMemoryDataStore(
-            H2InMemoryConfig.of("jdbc:h2:mem:", 20, List.of(CREATE_CLIENT_TABLE_SQL, CREATE_TRANSACTIONS_TABLE_SQL)));
-        transactionRepository = new TransactionRepositoryImpl(datastore);
-        clientRepository = new ClientRepositoryImpl(datastore);
+        transactionRepository = new TransactionRepositoryMock();
+        clientRepository = new ClientRepositoryMock();
         loadClients();
         transferService = new TransferServiceImpl(transactionRepository, clientRepository);
     }
@@ -57,4 +49,5 @@ class TransferReqServiceImplTest {
         assertThat(fromClientOpt, isPresentAndIs(new Client(1L, "1", 50.0)));
         assertThat(toClientOpt, isPresentAndIs(new Client(2L, "2", 250.0)));
     }
+
 }

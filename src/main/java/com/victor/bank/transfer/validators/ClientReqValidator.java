@@ -8,9 +8,9 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class ClientReqValidator {
-    private final static Predicate<String> fullNameMatcher = Pattern.compile("\\S+\\s+\\S+").asMatchPredicate().negate();
-    private final static String FULL_NAME_VIOLATION = "The full name of the client must be formed by at least 2 words separated by a space.";
-    private final static String NEGATIVE_BALANCE = "The initial Balance can't be negative.";
+    public final static Predicate<String> fullNameMatcher = Pattern.compile("\\S+\\s+\\S+").asMatchPredicate().negate();
+    public final static String FULL_NAME_VIOLATION = "The full name of the client must be formed by at least 2 words separated by a space.";
+    public final static String NEGATIVE_BALANCE = "The initial Balance can't be negative.";
 
     public static List<String> validateAddReq(final AddClientReq addClientReq) {
         final List<String> validations = new ArrayList<>();
