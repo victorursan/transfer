@@ -1,0 +1,157 @@
+swagger: "2.0"
+info:
+  description: "Simple API for money transfers between accounts."
+  version: "1.0.0"
+  title: "Swagger: Transfer service"
+host: "localhost"
+schemes:
+  - "http"
+paths:
+  /clients/{clientId}:
+    get:
+      tags:
+        - 'client'
+      summary: "Get client"
+      description: "Get the client with the respective clientId."
+      produces:
+        - 'application/json'
+      parameters:
+        - name: "clientId"
+          in: "path"
+          description: "The id of client to return"
+          required: true
+          type: number
+          format: "int64"
+
+
+      responses:
+        '200':
+          description: "The Client"
+          schema:
+            type: object
+            required:
+              - 'id'
+              - 'name'
+              - 'balance'
+            properties:
+              'id':
+                type: number
+                format: "int64"
+                description: "The id of the client"
+              'name':
+                type: string
+                description: "The name of the client"
+              'balance':
+                type: number
+                format: "double"
+                description: "The amount of money in the account"
+
+  /clients:
+    post:
+      tags:
+        - 'client'
+      summary: "Add client"
+      description: "Add a client."
+      produces:
+        - 'application/json'
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Details about the client"
+          required: true
+          schema:
+            type: object
+            required:
+              - 'fullName'
+            properties:
+              'fullName':
+                type: string
+                description: "The full name of the client. It must contains at least 2 words separated by a space"
+              'balance':
+                type: number
+                format: "double"
+                description: "The initial balance of the client. It must be positive."
+
+      responses:
+        '201':
+          description: "The Client"
+          schema:
+            type: object
+            required:
+              - 'id'
+              - 'name'
+              - 'balance'
+            properties:
+              'id':
+                type: number
+                format: "int64"
+                description: "The id of the client"
+              'name':
+                type: string
+                description: "The name of the client"
+              'balance':
+                type: number
+                format: "double"
+                description: "The amount of money in the account"
+
+  /transfers:
+    post:
+      tags:
+        - 'transfer'
+      summary: "Perform transfer"
+      description: "Perform a transfer between 2 clients"
+      produces:
+        - 'application/json'
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Transfer information"
+          required: true
+          schema:
+            type: object
+            required:
+              - 'fromId'
+              - 'toId'
+              - 'amount'
+            properties:
+              'fromId':
+                type: number
+                format: "int64"
+                description: "The ID of the customer that performs the transfer."
+              'toId':
+                type: number
+                format: "int64"
+                description: "The ID of the customer that receives the transfer."
+              'balance':
+                type: number
+                format: "double"
+                description: "The amount is transfered."
+
+      responses:
+        '201':
+          description: "The Transfer"
+          schema:
+            type: object
+            required:
+              - 'id'
+              - 'fromId'
+              - 'toId'
+              - 'amount'
+            properties:
+              'id':
+                type: number
+                format: "int64"
+                description: "The id the transfer"
+              'fromId':
+                type: number
+                format: "int64"
+                description: "The id of the client who transfered money."
+              'toId':
+                type: number
+                format: "int64"
+                description: "The id of the client who received money."
+              'amount':
+                type: number
+                format: "double"
+                description: "The amount of money that was transfered."
+

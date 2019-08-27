@@ -3,6 +3,7 @@
 ## Challenge
 
 Design and implement a RESTful API for money transfers between accounts.
+
 ## Requirements
 ```
 java: 12
@@ -12,6 +13,12 @@ gradle: 5.6
 ```
 > gradle run
 ```
+
+## API info
+Information in the [swagger](transfer_api.yaml) file.
+
+## Examples
+
 ### Add client
 
 * Request:
